@@ -1,2 +1,2 @@
-# SIGRA-Backend
-SIGRA - Sistema de Gerenciamento de Requisitos Ambientais
+# SGRA-Backend
+SGRA - Sistema de Gerenciamento de Requisitos Ambientais
