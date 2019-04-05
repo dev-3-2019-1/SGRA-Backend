@@ -2,7 +2,7 @@
 SGRA - Sistema de Gerenciamento de Requisitos Ambientais
 
 # Requisites
-* Have MongoDB installed
+* Have MongoDB installed - https://docs.mongodb.com/manual/administration/install-community/
 * Run the DB as a daemon or with the command:
 ```
 npm run db
