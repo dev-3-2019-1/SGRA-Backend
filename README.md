@@ -15,3 +15,8 @@ use SGRA
 
 * Start the application with `npm start`
 * Access http://localhost:3000/newuser
+
+## Links
+
+EJS: https://scotch.io/tutorials/use-ejs-to-template-your-node-application
+Mongo: https://scotch.io/tutorials/use-ejs-to-template-your-node-application
