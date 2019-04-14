@@ -11,8 +11,7 @@
         var list = '';
         for (i = 0; i < userlist.length; i++) {
           list += '<li>' +
-            '<a href="mailto:' + userlist[i].email + '">' + userlist[i].username + '</a>' +
-            '<a href="/users/' + userlist[i]._id + '/edit">Edit</a>' +
+            '<a class="test" href="/users/' + userlist[i]._id + '/edit">' + userlist[i].username + '</a>' +
             '<a href="/users/' + userlist[i]._id + '/delete">Delete</a>' +
           '</li>';
         }
