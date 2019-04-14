@@ -19,7 +19,6 @@ router.get('/new', function(req, res) {
       title: 'Add New User', 
       action: "/users/add" ,
       user: {
-        name: "John Doe"
       }
     });
 });
@@ -50,6 +49,7 @@ router.post('/add', function(req, res) {
 
   const db = req.db;
   const user = req.body;
+  delete user._id;
   const collection = db.get('usercollection');
   collection.insert(user, function (err) {
       if (err) {
