@@ -14,7 +14,7 @@ router.get('/', function(req, res) {
 
 /* GET New User page. */
 router.get('/new', function(req, res) {
-  res.render('newuser', { title: 'Add New User' });
+  res.render('newuser', { title: 'Add New User', action: "/users/add" });
 });
 
 /* GET Edit User page. */
