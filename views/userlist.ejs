@@ -12,8 +12,8 @@
         for (i = 0; i < userlist.length; i++) {
           list += '<li>' +
             '<a href="mailto:' + userlist[i].email + '">' + userlist[i].username + '</a>' +
-            '<a href="/users/' + i + '/edit">Edit</button>' +
-            '<a href="/users/' + i + '/delete">Delete</button>' +
+            '<a href="/users/' + i + '/edit">Edit</a>' +
+            '<a href="/users/' + i + '/delete">Delete</a>' +
           '</li>';
         }
         return list;
