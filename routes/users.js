@@ -14,25 +14,31 @@ router.get('/', function(req, res) {
 
 /* GET New User page. */
 router.get('/new', function(req, res) {
-  res.render('newuser', { title: 'Add New User', action: "/users/add" });
+  res.render('newuser', 
+    { 
+      title: 'Add New User', 
+      action: "/users/add" ,
+      user: {
+        name: "John Doe"
+      }
+    });
 });
 
 /* GET Edit User page. */
-router.get('/:userId/edit', function(req, res) {
-  var db = req.db;
-  var collection = db.get('usercollection');
-  collection.update({name: req.params.userId}, {$set: {name: "HIIII"}}, function(e, docs) {
-    console.log(e);
-    console.log(docs);
-    res.redirect("/users");
+router.get('/:userId/edit', async function(req, res) {
+  const db = req.db;
+  const collection = db.get('usercollection');
+  const user = await collection.findOne({
+    _id: req.params.userId
   });
+  res.render("newuser", { title: 'Maintain User', action: "/users/update", user});
 });
 
 /* GET Delete User page. */
 router.get('/:userId/delete', function(req, res) {
   var db = req.db;
   var collection = db.get('usercollection');
-  collection.delete({name: req.params.userId}, function(e, docs) {
+  collection.findOneAndDelete({_id: req.params.userId}, function(e, docs) {
     console.log(e);
     console.log(docs);
     res.redirect("/users");
@@ -42,30 +48,35 @@ router.get('/:userId/delete', function(req, res) {
 /* POST to Add User Service */
 router.post('/add', function(req, res) {
 
-  // Set our internal DB variable
-  var db = req.db;
-
-  // Get our form values. These rely on the "name" attributes
-  var userName = req.body.username;
-  var userEmail = req.body.useremail;
-
-  // Set our collection
-  var collection = db.get('usercollection');
-
-  // Submit to the DB
-  collection.insert({
-      "username" : userName,
-      "email" : userEmail
-  }, function (err, doc) {
+  const db = req.db;
+  const user = req.body;
+  const collection = db.get('usercollection');
+  collection.insert(user, function (err) {
       if (err) {
-          // If it failed, return error
-          res.send("There was a problem adding the information to the database.");
+        res.send("There was a problem adding the information to the database.");
       }
       else {
-          // And forward to success page
-          res.redirect("/users");
+        res.redirect("/users");
       }
   });
 });
+
+/* POST to Update User Service */
+router.post('/update', function(req, res) {
+  const db = req.db;
+  const user = req.body;
+  const collection = db.get('usercollection');
+  collection.findOneAndUpdate({ _id: user._id}, user, function(err) {
+    if (err) {
+      res.send("There was a problem adding the information to the database.");
+    }
+    else {
+      res.redirect("/users");
+    }
+  });
+});
+
+
+
 
 module.exports = router;
