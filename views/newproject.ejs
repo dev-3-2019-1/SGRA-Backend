@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Manter Projeto</title>
+    <link rel='stylesheet' href='public/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <form id="formAddProject" name="addproject" method="post" action="<%= action %>">
+      <input type="hidden" value="<%= project._id %>" name="_id" />
+      <p>Nome do Projeto</p>
+      <input id="inputProjectName" type="text" placeholder="" name="projectname" value="<%= project.projectname %>" />
+      <p>Nome do Cliente</p>
+      <input id="inputCustomerName" type="text" placeholder="" name="customername" value="<%= project.customername %>" />
+      <p>Data de Início</p>
+      <input id="inputStartDate" type="date" placeholder="" name="startdate" value="<%= project.startdate %>" />
+      <p>Data de Fim</p>
+      <input id="inputEndDate" type="date" placeholder="" name="enddate" value="<%= project.enddate %>" />
+      <p>Mestre de Obras</p>
+      <input id="inputMasterOfWorks" type="text" placeholder="" name="masterofworks" value="<%= project.masterofworks %>" />
+      <p></p>
+      <button id="btnSubmit" type="submit">Salvar</button>
+    </form>
+  </body>
+</html>
