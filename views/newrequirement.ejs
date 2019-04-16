@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Manter Usuário</title>
+    <link rel='stylesheet' href='/public/stylesheets/style.css' type="text/css"/>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <form id="formAddRequirement" name="addrequirement" method="post" action="<%= action %>">
+      <input type="hidden" value="<%= requirement._id %>" name="_id" />
+      <p>Usuário</p>
+      <input id="inputRequirementName" type="text" placeholder="" name="requirementname" value="<%= requirement.requirementname %>" />
+      <p>E-mail</p>
+      <input id="inputRequirementEmail" type="text" placeholder="" name="requirementemail" value="<%= requirement.requirementemail %>" />
+      <p>Autorizações</p>
+      <select name="authorization" multiple="true" >
+        <option value="GDP" <%= requirement.authorization && (requirement.authorization.findIndex((a) => a === 'GDP') !== -1) ? 'selected' : '' %> >Gerente de projeto</option>
+        <option value="MDO" <%= requirement.authorization && (requirement.authorization.findIndex((a) => a === 'MDO') !== -1) ? 'selected' : '' %> >Mestre de obras</option>
+        <option value="SYS" <%= requirement.authorization && (requirement.authorization.findIndex((a) => a === 'SYS') !== -1) ? 'selected' : '' %> >Administrador de sistema</option>
+        <option value="AUD" <%= requirement.authorization && (requirement.authorization.findIndex((a) => a === 'AUD') !== -1) ? 'selected' : '' %> >Auditor</option>
+      </select>
+      <p></p>
+      <button id="btnSubmit" type="submit">Salvar</button>
+    </form>
+  </body>
+</html>
