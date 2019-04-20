@@ -40,7 +40,13 @@
       <input id="inputSolveDate" type="date" placeholder="" name="solvedate" value="<%= requirement.solvedate %>" />
 
       <p>Usuário Responsável</p>
-      <input id="inputResponsibleUser" type="text" placeholder="" name="responsibleuser" value="<%= requirement.responsibleuser %>" />
+      <% if (userlist && userlist.length) { %>
+        <select name="responsibleuser" multiple="false" >
+          <% userlist.forEach((item) => { %>
+            <option value="<%= item._id %>" <%= requirement.responsibleuser && (requirement.responsibleuser == item._id) ? 'selected' : '' %> ><%= item.username %></option>
+          <% }) %>
+        </select>
+      <% } %>
 
       <p></p>
       <button id="btnSubmit" type="submit">Salvar</button>
