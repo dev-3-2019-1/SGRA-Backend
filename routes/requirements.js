@@ -6,21 +6,25 @@ router.get('/', function(req, res) {
   var db = req.db;
   var collection = db.get('requirementcollection');
   collection.find({},{},function(e,docs){
-      res.render('requirementlist', {
-          "requirementlist" : docs
-      });
+    res.render('requirementlist', {
+        "requirementlist" : docs
+    });
   });
 });
 
 /* GET New Requirement page. */
 router.get('/new', function(req, res) {
-  res.render('newrequirement', 
-    { 
-      title: 'Add New Requirement', 
-      action: "/requirements/add" ,
+  var db = req.db;
+  var projectCollection = db.get('projectcollection');
+  projectCollection.find({},{},function(e,docs){
+    res.render('newrequirement', {
+      title: 'Add New Requirement',
+      action: '/requirements/add',
+      projectlist: docs,
       requirement: {
       }
     });
+  });
 });
 
 /* GET Edit Requirement page. */
@@ -30,7 +34,9 @@ router.get('/:requirementId/edit', async function(req, res) {
   const requirement = await collection.findOne({
     _id: req.params.requirementId
   });
-  res.render("newrequirement", { title: 'Maintain Requirement', action: "/requirements/update", requirement});
+  const projectCollection = db.get('projectcollection');
+  const projectlist = await projectCollection.find({});
+  res.render("newrequirement", { title: 'Maintain Requirement', action: "/requirements/update", projectlist: projectlist, requirement});
 });
 
 /* GET Delete Requirement page. */
