@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Audit List</title>
+    <link rel='stylesheet' href='/public/stylesheets/style.css' type="text/css"/>
+  </head>
+  <body>
+    <h1>Audit List</h1>
+    <% if (auditlist && auditlist.length) { %>
+      <ul>
+        <% auditlist.forEach((item) => { %>
+          <li>
+            <a class="test" href="/audits/<%= item._id %>/edit"><%= item.auditdescription %></a>
+            <a href="/audits/<%= item._id %>/delete">Delete</a>
+          </li>
+        <% }) %>
+      </ul>
+    <% } %>
+  </body>
+</html>

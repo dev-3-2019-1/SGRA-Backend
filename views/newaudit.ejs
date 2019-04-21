@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Manter Audit</title>
+    <link rel='stylesheet' href='/public/stylesheets/style.css' type="text/css"/>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <form id="formAddAudit" name="addaudit" method="post" action="<%= action %>">
+      <input type="hidden" value="<%= audit._id %>" name="_id" />
+      <p>Descrição</p>
+      <input id="inputAuditDescription" type="text" placeholder="" name="auditdescription" value="<%= audit.auditdescription %>" />
+      <p>Data</p>
+      <input id="inputAuditDate" type="date" placeholder="" name="date" value="<%= audit.date %>" />
+
+      <p>Status</p>
+      <select name="status" multiple="false" >
+        <option value="OPEN" <%= audit.status && (audit.status === 'OPEN') ? 'selected' : '' %> >Aberta</option>
+        <option value="SCHEDULED" <%= audit.status && (audit.status === 'SCHEDULED') ? 'selected' : '' %> >Agendada</option>
+        <option value="DONE" <%= audit.status && (audit.status === 'DONE') ? 'selected' : '' %> >Realizada</option>
+        <option value="CANCELLED" <%= audit.status && (audit.status === 'CANCELLED') ? 'selected' : '' %> >Cancelada</option>
+      </select>
+
+      <p>Resultado</p>
+      <select name="result" multiple="false" >
+        <option value="APPROVED" <%= audit.result && (audit.result === 'APPROVED') ? 'selected' : '' %> >Aprovada</option>
+        <option value="DISAPPROVED" <%= audit.result && (audit.result === 'DISAPPROVED') ? 'selected' : '' %> >Reprovada</option>
+      </select>
+
+      <p>Descrição do Resultado</p>
+      <input id="inputResultDescription" type="text" placeholder="" name="resultdescription" value="<%= audit.resultdescription %>" />
+
+      <p>Requisitos Pendentes</p>
+      <% if (requirementlist && requirementlist.length) { %>
+        <select name="requirements" multiple="true" >
+          <% requirementlist.forEach((item) => { %>
+            <option value="<%= item._id %>" <%= (audit.requirements && audit.requirements.findIndex && (audit.requirements.findIndex((a) => a == item._id) !== -1)) || (audit.requirements && (audit.requirements == item._id)) ? 'selected' : '' %> ><%= item.requirementname %></option>
+          <% }) %>
+        </select>
+      <% } %>
+
+      <p>Projeto Associado</p>
+      <% if (projectlist && projectlist.length) { %>
+        <select name="project" multiple="false" >
+          <% projectlist.forEach((item) => { %>
+            <option value="<%= item._id %>" <%= audit.project && (audit.project == item._id) ? 'selected' : '' %> ><%= item.projectname %></option>
+          <% }) %>
+        </select>
+      <% } %>
+      
+      <p></p>
+      <button id="btnSubmit" type="submit">Salvar</button>
+    </form>
+  </body>
+</html>
