@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Project List</title>
+    <link rel='stylesheet' href='/public/stylesheets/style.css' type="text/css"/>
+  </head>
+  <body>
+    <h1>Project List</h1>
+    <% if (projectlist && projectlist.length) { %>
+      <ul>
+        <% projectlist.forEach((item) => { %>
+          <li>
+            <a class="test" href="/projects/<%= item._id %>/edit"><%= item.projectname %></a>
+            <a href="/projects/<%= item._id %>/delete">Delete</a>
+          </li>
+        <% }) %>
+      </ul>
+    <% } %>
+  </body>
+</html>

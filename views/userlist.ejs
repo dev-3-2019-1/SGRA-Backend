@@ -2,21 +2,19 @@
 <html>
   <head>
     <title>User List</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/public/stylesheets/style.css' type="text/css"/>
   </head>
   <body>
     <h1>User List</h1>
-    <ul>
-      <%
-        var list = '';
-        for (i = 0; i < userlist.length; i++) {
-          list += '<li>' +
-            '<a class="test" href="/users/' + userlist[i]._id + '/edit">' + userlist[i].username + '</a>' +
-            '<a href="/users/' + userlist[i]._id + '/delete">Delete</a>' +
-          '</li>';
-        }
-        return list;
-      %>
-    </ul>
+    <% if (userlist && userlist.length) { %>
+      <ul>
+        <% userlist.forEach((item) => { %>
+          <li>
+            <a class="test" href="/users/<%= item._id %>/edit"><%= item.username %></a>
+            <a href="/users/<%= item._id %>/delete">Delete</a>
+          </li>
+        <% }) %>
+      </ul>
+    <% } %>
   </body>
 </html>
