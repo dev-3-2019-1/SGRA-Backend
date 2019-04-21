@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Manter Mensagem</title>
+    <link rel='stylesheet' href='/public/stylesheets/style.css' type="text/css"/>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <form id="formAddMessage" name="addmessage" method="post" action="<%= action %>">
+      <input type="hidden" value="<%= message._id %>" name="_id" />
+      <p>Texto</p>
+      <input id="inputMessageText" type="text" placeholder="" name="messagetext" value="<%= message.messagetext %>" />
+      
+      <p>Remetente</p>
+      <% if (userlist && userlist.length) { %>
+        <select name="sender" multiple="false" >
+          <% userlist.forEach((item) => { %>
+            <option value="<%= item._id %>" <%= message.sender && (message.sender == item._id) ? 'selected' : '' %> ><%= item.username %></option>
+          <% }) %>
+        </select>
+      <% } %>
+
+      <p>Destinatários</p>
+      <% if (userlist && userlist.length) { %>
+        <select name="receivers" multiple="false" >
+          <% userlist.forEach((item) => { %>
+            <option value="<%= item._id %>" <%= message.receivers && (message.receivers.findIndex((a) => a == item._id) !== -1) ? 'selected' : '' %> ><%= item.username %></option>
+          <% }) %>
+        </select>
+      <% } %>
+      
+      <p>Projeto Relacionado</p>
+      <% if (projectlist && projectlist.length) { %>
+        <select name="project" multiple="false" >
+          <% projectlist.forEach((item) => { %>
+            <option value="<%= item._id %>" <%= message.project && (message.project == item._id) ? 'selected' : '' %> ><%= item.projectname %></option>
+          <% }) %>
+        </select>
+      <% } %>
+      
+      <p></p>
+      <button id="btnSubmit" type="submit">Salvar</button>
+    </form>
+  </body>
+</html>
