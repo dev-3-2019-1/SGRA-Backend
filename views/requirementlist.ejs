@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Requirement List</title>
+    <link rel='stylesheet' href='/public/stylesheets/style.css' type="text/css"/>
+  </head>
+  <body>
+    <h1>Requirement List</h1>
+    <% if (requirementlist && requirementlist.length) { %>
+      <ul>
+        <% requirementlist.forEach((item) => { %>
+          <li>
+            <a class="test" href="/requirements/<%= item._id %>/edit"><%= item.requirementname %></a>
+            <a href="/requirements/<%= item._id %>/delete">Delete</a>
+          </li>
+        <% }) %>
+      </ul>
+    <% } %>
+  </body>
+</html>
