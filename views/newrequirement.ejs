@@ -15,7 +15,7 @@
       <p>Projeto Relacionado</p>
 
       <% if (projectlist && projectlist.length) { %>
-        <select name="project" multiple="false" >
+        <select name="project" >
           <% projectlist.forEach((item) => { %>
             <option value="<%= item._id %>" <%= requirement.project && (requirement.project == item._id) ? 'selected' : '' %> ><%= item.projectname %></option>
           <% }) %>
@@ -23,14 +23,14 @@
       <% } %>
       
       <p>Status</p>
-      <select name="status" multiple="false" >
+      <select name="status" >
         <option value="OPEN" <%= requirement.status && (requirement.status === 'OPEN') ? 'selected' : '' %> >Aberto</option>
         <option value="PENDING" <%= requirement.status && (requirement.status === 'PENDING') ? 'selected' : '' %> >Pendente</option>
         <option value="SOLVED" <%= requirement.status && (requirement.status === 'SOLVED') ? 'selected' : '' %> >Resolvido</option>
       </select>
 
       <p>Prioridade</p>
-      <select name="priority" multiple="false" >
+      <select name="priority" >
         <option value="1" <%= requirement.priority && (requirement.priority === '1') ? 'selected' : '' %> >1</option>
         <option value="2" <%= requirement.priority && (requirement.priority === '2') ? 'selected' : '' %> >2</option>
         <option value="3" <%= requirement.priority && (requirement.priority === '3') ? 'selected' : '' %> >3</option>
@@ -41,7 +41,7 @@
 
       <p>Usuário Responsável</p>
       <% if (userlist && userlist.length) { %>
-        <select name="responsibleuser" multiple="false" >
+        <select name="responsibleuser" >
           <% userlist.forEach((item) => { %>
             <option value="<%= item._id %>" <%= requirement.responsibleuser && (requirement.responsibleuser == item._id) ? 'selected' : '' %> ><%= item.username %></option>
           <% }) %>
