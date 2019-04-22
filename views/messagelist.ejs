@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Message List</title>
+    <link rel='stylesheet' href='/public/stylesheets/style.css' type="text/css"/>
+  </head>
+  <body>
+    <h1>Message List</h1>
+    <% if (messagelist && messagelist.length) { %>
+      <ul>
+        <% messagelist.forEach((item) => { %>
+          <li>
+            <a class="test" href="/messages/<%= item._id %>/edit"><%= item.messagetext %></a>
+            <a href="/messages/<%= item._id %>/delete">Delete</a>
+          </li>
+        <% }) %>
+      </ul>
+    <% } %>
+  </body>
+</html>
