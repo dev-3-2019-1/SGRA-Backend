@@ -14,7 +14,7 @@
       <input id="inputAuditDate" type="date" placeholder="" name="date" value="<%= audit.date %>" />
 
       <p>Status</p>
-      <select name="status" multiple="false" >
+      <select name="status" >
         <option value="OPEN" <%= audit.status && (audit.status === 'OPEN') ? 'selected' : '' %> >Aberta</option>
         <option value="SCHEDULED" <%= audit.status && (audit.status === 'SCHEDULED') ? 'selected' : '' %> >Agendada</option>
         <option value="DONE" <%= audit.status && (audit.status === 'DONE') ? 'selected' : '' %> >Realizada</option>
@@ -22,7 +22,7 @@
       </select>
 
       <p>Resultado</p>
-      <select name="result" multiple="false" >
+      <select name="result" >
         <option value="APPROVED" <%= audit.result && (audit.result === 'APPROVED') ? 'selected' : '' %> >Aprovada</option>
         <option value="DISAPPROVED" <%= audit.result && (audit.result === 'DISAPPROVED') ? 'selected' : '' %> >Reprovada</option>
       </select>
@@ -32,7 +32,7 @@
 
       <p>Requisitos Pendentes</p>
       <% if (requirementlist && requirementlist.length) { %>
-        <select name="requirements" multiple="true" >
+        <select name="requirements" multiple >
           <% requirementlist.forEach((item) => { %>
             <option value="<%= item._id %>" <%= (audit.requirements && audit.requirements.findIndex && (audit.requirements.findIndex((a) => a == item._id) !== -1)) || (audit.requirements && (audit.requirements == item._id)) ? 'selected' : '' %> ><%= item.requirementname %></option>
           <% }) %>
@@ -41,7 +41,7 @@
 
       <p>Projeto Associado</p>
       <% if (projectlist && projectlist.length) { %>
-        <select name="project" multiple="false" >
+        <select name="project" >
           <% projectlist.forEach((item) => { %>
             <option value="<%= item._id %>" <%= audit.project && (audit.project == item._id) ? 'selected' : '' %> ><%= item.projectname %></option>
           <% }) %>

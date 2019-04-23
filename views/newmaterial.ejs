@@ -17,7 +17,7 @@
       
       <p>Projeto Relacionado</p>
       <% if (projectlist && projectlist.length) { %>
-        <select name="project" multiple="false" >
+        <select name="project" >
           <% projectlist.forEach((item) => { %>
             <option value="<%= item._id %>" <%= material.project && (material.project == item._id) ? 'selected' : '' %> ><%= item.projectname %></option>
           <% }) %>
@@ -29,7 +29,7 @@
 
       <p>Usuário Responsável</p>
       <% if (userlist && userlist.length) { %>
-        <select name="responsibleuser" multiple="false" >
+        <select name="responsibleuser" >
           <% userlist.forEach((item) => { %>
             <option value="<%= item._id %>" <%= material.responsibleuser && (material.responsibleuser == item._id) ? 'selected' : '' %> ><%= item.username %></option>
           <% }) %>

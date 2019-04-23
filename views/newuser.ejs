@@ -13,7 +13,7 @@
       <p>E-mail</p>
       <input id="inputUserEmail" type="text" placeholder="" name="useremail" value="<%= user.useremail %>" />
       <p>Autorizações</p>
-      <select name="authorization" multiple="true" >
+      <select name="authorization" multiple >
         <option value="GDP" <%= (user.authorization && user.authorization.findIndex && (user.authorization.findIndex((a) => a === 'GDP') !== -1)) || (user.authorization && (user.authorization === 'GDP')) ? 'selected' : '' %> >Gerente de projeto</option>
         <option value="MDO" <%= (user.authorization && user.authorization.findIndex && (user.authorization.findIndex((a) => a === 'MDO') !== -1)) || (user.authorization && (user.authorization === 'MDO')) ? 'selected' : '' %> >Mestre de obras</option>
         <option value="SYS" <%= (user.authorization && user.authorization.findIndex && (user.authorization.findIndex((a) => a === 'SYS') !== -1)) || (user.authorization && (user.authorization === 'SYS')) ? 'selected' : '' %> >Administrador de sistema</option>
