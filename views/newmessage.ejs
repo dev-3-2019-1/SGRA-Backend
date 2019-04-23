@@ -13,7 +13,7 @@
       
       <p>Remetente</p>
       <% if (userlist && userlist.length) { %>
-        <select name="sender" multiple="false" >
+        <select name="sender" >
           <% userlist.forEach((item) => { %>
             <option value="<%= item._id %>" <%= message.sender && (message.sender == item._id) ? 'selected' : '' %> ><%= item.username %></option>
           <% }) %>
@@ -22,7 +22,7 @@
 
       <p>Destinatários</p>
       <% if (userlist && userlist.length) { %>
-        <select name="receivers" multiple="true" >
+        <select name="receivers" multiple>
           <% userlist.forEach((item) => { %>
             <option value="<%= item._id %>" <%= (message.receivers && message.receivers.findIndex && (message.receivers.findIndex((a) => a == item._id) !== -1)) || (message.receivers && (message.receivers == item._id)) ? 'selected' : '' %> ><%= item.username %></option>
           <% }) %>
@@ -31,7 +31,7 @@
       
       <p>Projeto Relacionado</p>
       <% if (projectlist && projectlist.length) { %>
-        <select name="project" multiple="false" >
+        <select name="project" >
           <% projectlist.forEach((item) => { %>
             <option value="<%= item._id %>" <%= message.project && (message.project == item._id) ? 'selected' : '' %> ><%= item.projectname %></option>
           <% }) %>
