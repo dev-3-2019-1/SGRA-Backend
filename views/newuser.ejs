@@ -14,10 +14,10 @@
       <input id="inputUserEmail" type="text" placeholder="" name="useremail" value="<%= user.useremail %>" />
       <p>Autorizações</p>
       <select name="authorization" multiple="true" >
-        <option value="GDP" <%= user.authorization && (user.authorization.findIndex((a) => a === 'GDP') !== -1) ? 'selected' : '' %> >Gerente de projeto</option>
-        <option value="MDO" <%= user.authorization && (user.authorization.findIndex((a) => a === 'MDO') !== -1) ? 'selected' : '' %> >Mestre de obras</option>
-        <option value="SYS" <%= user.authorization && (user.authorization.findIndex((a) => a === 'SYS') !== -1) ? 'selected' : '' %> >Administrador de sistema</option>
-        <option value="AUD" <%= user.authorization && (user.authorization.findIndex((a) => a === 'AUD') !== -1) ? 'selected' : '' %> >Auditor</option>
+        <option value="GDP" <%= (user.authorization && user.authorization.findIndex && (user.authorization.findIndex((a) => a === 'GDP') !== -1)) || (user.authorization && user.authorization === 'GDP') ? 'selected' : '' %> >Gerente de projeto</option>
+        <option value="MDO" <%= (user.authorization && user.authorization.findIndex && (user.authorization.findIndex((a) => a === 'MDO') !== -1)) || (user.authorization && user.authorization === 'MDO') ? 'selected' : '' %> >Mestre de obras</option>
+        <option value="SYS" <%= (user.authorization && user.authorization.findIndex && (user.authorization.findIndex((a) => a === 'SYS') !== -1)) || (user.authorization && user.authorization === 'SYS') ? 'selected' : '' %> >Administrador de sistema</option>
+        <option value="AUD" <%= (user.authorization && user.authorization.findIndex && (user.authorization.findIndex((a) => a === 'AUD') !== -1)) || (user.authorization && user.authorization === 'AUD') ? 'selected' : '' %> >Auditor</option>
       </select>
       <p></p>
       <button id="btnSubmit" type="submit">Salvar</button>
