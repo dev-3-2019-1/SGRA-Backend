@@ -14,13 +14,17 @@ router.get('/', function(req, res) {
 
 /* GET New Project page. */
 router.get('/new', function(req, res) {
-  res.render('newproject', 
-    { 
+  const db = req.db;
+  const userCollection = db.get('usercollection');
+  const userlist = userCollection.find({},{},function(e,docs){
+    res.render('newproject', {
       title: 'Add New Project', 
-      action: "/projects/add" ,
+      action: "/messages/add" ,
+      userlist: docs,
       project: {
       }
     });
+  });
 });
 
 /* GET Edit Project page. */
