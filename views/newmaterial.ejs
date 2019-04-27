@@ -14,7 +14,12 @@
       <input id="inputMaterialDescription" type="text" placeholder="" name="materialdescription" value="<%= material.materialdescription %>" />
       <p>Unidade de Medida</p>
       <input id="inputMaterialMeasure" type="text" placeholder="" name="materialmeasure" value="<%= material.materialmeasure %>" />
+
+      <p>Projeto Relacionado</p>
+      <input id="inputProject" type="text" placeholder="" name="materialproject" value="<%= assign && assign.project %>" disabled />
       
+      <a href="/materials/assignProject">Selecionar</a>
+
       <p>Projeto Relacionado</p>
       <% if (projectlist && projectlist.length) { %>
         <select name="project" >
