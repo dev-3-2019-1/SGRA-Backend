@@ -14,12 +14,16 @@ router.get('/', function(req, res) {
 
 /* GET New Project page. */
 router.get('/new', function(req, res) {
-  res.render('newproject', {
-    title: 'Add New Project',
-    action: "/projects/add" ,
-    relatedProjectsList: {},
-    project: {
-    }
+  const db = req.db;
+  const userCollection = db.get('usercollection');
+  userCollection.find({},{},function(e,docs){
+    res.render('newproject', {
+      title: 'Add New Project', 
+      action: "/projects/add" ,
+      userlist: docs,
+      relatedProjectsList: {},
+      project: {}
+    });
   });
 });
 
@@ -27,6 +31,8 @@ router.get('/new', function(req, res) {
 router.get('/:projectId/edit', async function(req, res) {
   const db = req.db;
   const collection = db.get('projectcollection');
+  const userCollection = db.get('usercollection');
+
   const project = await collection.findOne({
     _id: req.params.projectId
   });
@@ -34,11 +40,14 @@ router.get('/:projectId/edit', async function(req, res) {
   const relatedProjectsList = await projectMaterialsCollection.find({
     proj: req.params.projectId
   });
-  res.render("newproject", { 
-    title: 'Maintain Project', 
-    action: "/projects/update", 
-    relatedProjectsList: relatedProjectsList,
-    project
+  userCollection.find({},{},function(e,docs){
+    res.render("newproject", { 
+      title: 'Maintain Project', 
+      action: "/projects/update", 
+      relatedProjectsList: relatedProjectsList,
+      userlist: docs,
+      project
+    });
   });
 });
 
