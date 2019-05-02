@@ -14,13 +14,13 @@ router.get('/', function(req, res) {
 
 /* GET New Project page. */
 router.get('/new', function(req, res) {
-  res.render('newproject', 
-    { 
-      title: 'Add New Project', 
-      action: "/projects/add" ,
-      project: {
-      }
-    });
+  res.render('newproject', {
+    title: 'Add New Project',
+    action: "/projects/add" ,
+    relatedProjectsList: {},
+    project: {
+    }
+  });
 });
 
 /* GET Edit Project page. */
@@ -30,7 +30,16 @@ router.get('/:projectId/edit', async function(req, res) {
   const project = await collection.findOne({
     _id: req.params.projectId
   });
-  res.render("newproject", { title: 'Maintain Project', action: "/projects/update", project});
+  const projectMaterialsCollection = db.get('projectMaterialsCollection');
+  const relatedProjectsList = await projectMaterialsCollection.find({
+    proj: req.params.projectId
+  });
+  res.render("newproject", { 
+    title: 'Maintain Project', 
+    action: "/projects/update", 
+    relatedProjectsList: relatedProjectsList,
+    project
+  });
 });
 
 /* GET Delete Project page. */
