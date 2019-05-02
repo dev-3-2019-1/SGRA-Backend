@@ -16,8 +16,15 @@
       <input id="inputStartDate" type="date" placeholder="" name="startdate" value="<%= project.startdate %>" />
       <p>Data de Fim</p>
       <input id="inputEndDate" type="date" placeholder="" name="enddate" value="<%= project.enddate %>" />
+
       <p>Mestre de Obras</p>
-      <input id="inputMasterOfWorks" type="text" placeholder="" name="masterofworks" value="<%= project.masterofworks %>" />
+      <% if (userlist && userlist.length) { %>
+        <select name="masterofworks" >
+          <% userlist.forEach((item) => { %>
+            <option value="<%= item._id %>" <%= project.masterofworks && (project.masterofworks == item._id) ? 'selected' : '' %> ><%= item.username %></option>
+          <% }) %>
+        </select>
+      <% } %>
       <p></p>
       <button id="btnSubmit" type="submit">Salvar</button>
     </form>
