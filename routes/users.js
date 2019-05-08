@@ -17,7 +17,8 @@ router.get('/new', function(req, res) {
   res.render('newuser', {
     title: 'Add New User',
     action: "/users/add" ,
-    relatedProjectsList: {},
+    relatedMaterialsList: {},
+    relatedRequirementsList: {},
     user: {
     }
   });
@@ -31,13 +32,18 @@ router.get('/:userId/edit', async function(req, res) {
     _id: req.params.userId
   });
   const projectMaterialsCollection = db.get('projectMaterialsCollection');
-  const relatedProjectsList = await projectMaterialsCollection.find({
+  const relatedMaterialsList = await projectMaterialsCollection.find({
+    responsibleUser: req.params.userId
+  });
+  const projectRequirementsCollection = db.get('projectRequirementsCollection');
+  const relatedRequirementsList = await projectRequirementsCollection.find({
     responsibleUser: req.params.userId
   });
   res.render("newuser", {
     title: 'Maintain User',
     action: "/users/update",
-    relatedProjectsList: relatedProjectsList,
+    relatedMaterialsList: relatedMaterialsList,
+    relatedRequirementsList: relatedRequirementsList,
     user
   });
 });

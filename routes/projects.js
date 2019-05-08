@@ -21,7 +21,8 @@ router.get('/new', function(req, res) {
       title: 'Add New Project', 
       action: "/projects/add" ,
       userlist: docs,
-      relatedProjectsList: {},
+      relatedMaterialsList: {},
+      relatedRequirementsList: {},
       project: {}
     });
   });
@@ -37,14 +38,19 @@ router.get('/:projectId/edit', async function(req, res) {
     _id: req.params.projectId
   });
   const projectMaterialsCollection = db.get('projectMaterialsCollection');
-  const relatedProjectsList = await projectMaterialsCollection.find({
+  const relatedMaterialsList = await projectMaterialsCollection.find({
+    proj: req.params.projectId
+  });
+  const projectRequirementsCollection = db.get('projectRequirementsCollection');
+  const relatedRequirementsList = await projectRequirementsCollection.find({
     proj: req.params.projectId
   });
   userCollection.find({},{},function(e,docs){
     res.render("newproject", { 
       title: 'Maintain Project', 
       action: "/projects/update", 
-      relatedProjectsList: relatedProjectsList,
+      relatedMaterialsList: relatedMaterialsList,
+      relatedRequirementsList: relatedRequirementsList,
       userlist: docs,
       project
     });

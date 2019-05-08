@@ -14,19 +14,12 @@ router.get('/', function(req, res) {
 
 /* GET New Requirement page. */
 router.get('/new', async function(req, res) {
-  const db = req.db;
-  const userCollection = db.get('usercollection');
-  const projectCollection = db.get('projectcollection');
-  const userlist = await userCollection.find({});
-  const projectlist = projectCollection.find({},{},function(e,docs){
-    res.render('newrequirement', {
-      title: 'Add New Requirement',
-      action: '/requirements/add',
-      projectlist: docs,
-      userlist: userlist,
-      requirement: {
-      }
-    });
+  res.render('newrequirement', {
+    title: 'Add New Requirement',
+    action: '/requirements/add',
+    relatedProjectsList: {},
+    requirement: {
+    }
   });
 });
 
@@ -37,15 +30,14 @@ router.get('/:requirementId/edit', async function(req, res) {
   const requirement = await collection.findOne({
     _id: req.params.requirementId
   });
-  const projectCollection = db.get('projectcollection');
-  const userCollection = db.get('usercollection');
-  const projectlist = await projectCollection.find({});
-  const userlist = await userCollection.find({});
+  const projectRequirementsCollection = db.get('projectRequirementsCollection');
+  const relatedProjectsList = await projectRequirementsCollection.find({
+    requirement: req.params.requirementId
+  });
   res.render("newrequirement", { 
     title: 'Maintain Requirement', 
     action: "/requirements/update", 
-    projectlist: projectlist,
-    userlist: userlist,
+    relatedProjectsList: relatedProjectsList,
     requirement
   });
 });
