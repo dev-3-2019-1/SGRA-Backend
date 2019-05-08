@@ -23,12 +23,26 @@
       <p>Responsabilidade de Materiais
         <a href="/projectMaterials/new">Adicionar</a>
       </p>
-      <% if (relatedProjectsList && relatedProjectsList.length) { %>
+      <% if (relatedMaterialsList && relatedMaterialsList.length) { %>
         <ul>
-          <% relatedProjectsList.forEach((item) => { %>
+          <% relatedMaterialsList.forEach((item) => { %>
             <li>
               <a class="test" href="/projectMaterials/<%= item._id %>/edit"><%= item.materialName %> (<%= item.materialusage %>) - <%= item.projectName %></a>
               <a href="/projectMaterials/<%= item._id %>/delete">Delete</a>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
+
+      <p>Responsabilidade de Requisitos
+        <a href="/projectRequirements/new">Adicionar</a>
+      </p>
+      <% if (relatedRequirementsList && relatedRequirementsList.length) { %>
+        <ul>
+          <% relatedRequirementsList.forEach((item) => { %>
+            <li>
+              <a class="test" href="/projectRequirements/<%= item._id %>/edit"><%= item.projectName %> - <%= item.requirementName %> - <%= item.status %> - <%= item.priority %></a>
+              <a href="/projectRequirements/<%= item._id %>/delete">Delete</a>
             </li>
           <% }) %>
         </ul>
