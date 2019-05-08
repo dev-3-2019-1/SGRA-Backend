@@ -15,6 +15,7 @@ var requirementsRouter = require('./routes/requirements');
 var messagesRouter = require('./routes/messages');
 var materialsRouter = require('./routes/materials');
 var projectMaterialsRouter = require('./routes/projectMaterials');
+var projectRequirementsRouter = require('./routes/projectRequirements');
 
 var app = express();
 
@@ -40,6 +41,7 @@ app.use('/requirements', requirementsRouter);
 app.use('/messages', messagesRouter);
 app.use('/materials', materialsRouter);
 app.use('/projectMaterials', projectMaterialsRouter);
+app.use('/projectRequirements', projectRequirementsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
