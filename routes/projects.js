@@ -13,18 +13,22 @@ router.get('/', function(req, res) {
 });
 
 /* GET New Project page. */
-router.get('/new', function(req, res) {
+router.get('/new', async function(req, res) {
   const db = req.db;
   const userCollection = db.get('usercollection');
-  userCollection.find({},{},function(e,docs){
-    res.render('newproject', {
-      title: 'Add New Project', 
-      action: "/projects/add" ,
-      userlist: docs,
-      relatedMaterialsList: {},
-      relatedRequirementsList: {},
-      project: {}
-    });
+  const userlist = await userCollection.find({});
+  console.log(userlist);
+  const managerlist = await userCollection.find({
+    authorization: "GDP"
+  });
+  res.render('newproject', {
+    title: 'Add New Project', 
+    action: "/projects/add" ,
+    userlist: userlist,
+    managerlist: managerlist,
+    relatedMaterialsList: {},
+    relatedRequirementsList: {},
+    project: {}
   });
 });
 
@@ -33,6 +37,10 @@ router.get('/:projectId/edit', async function(req, res) {
   const db = req.db;
   const collection = db.get('projectcollection');
   const userCollection = db.get('usercollection');
+  const userlist = await userCollection.find({});
+  const managerlist = await userCollection.find({
+    authorization: "GDP"
+  });
 
   const project = await collection.findOne({
     _id: req.params.projectId
@@ -51,7 +59,8 @@ router.get('/:projectId/edit', async function(req, res) {
       action: "/projects/update", 
       relatedMaterialsList: relatedMaterialsList,
       relatedRequirementsList: relatedRequirementsList,
-      userlist: docs,
+      userlist: userlist,
+      managerlist: managerlist,
       project
     });
   });
