@@ -14,19 +14,11 @@ router.get('/', function(req, res) {
 
 /* GET New Materials page. */
 router.get('/new', async function(req, res) {
-  const db = req.db;
-  const userCollection = db.get('usercollection');
-  const projectCollection = db.get('projectcollection');
-  const userlist = await userCollection.find({});
-  const projectlist = projectCollection.find({},{},function(e,docs){
-    res.render('newmaterial', {
-      title: 'Add New Materials', 
-      action: "/materials/add" ,
-      projectlist: docs,
-      userlist: userlist,
-      material: {
-      }
-    });
+  res.render('newmaterial', {
+    title: 'Add New Materials', 
+    action: "/materials/add" ,
+    relatedProjectsList: {},
+    material: {}
   });
 });
 
@@ -37,15 +29,14 @@ router.get('/:materialId/edit', async function(req, res) {
   const material = await collection.findOne({
     _id: req.params.materialId
   });
-  const projectCollection = db.get('projectcollection');
-  const userCollection = db.get('usercollection');
-  const projectlist = await projectCollection.find({});
-  const userlist = await userCollection.find({});
+  const projectMaterialsCollection = db.get('projectMaterialsCollection');
+  const relatedProjectsList = await projectMaterialsCollection.find({
+    mat: req.params.materialId
+  });
   res.render("newmaterial", {
     title: 'Maintain Materials',
     action: "/materials/update",
-    projectlist: projectlist,
-    userlist: userlist,
+    relatedProjectsList: relatedProjectsList,
     material
   });
 });
@@ -63,7 +54,6 @@ router.get('/:materialId/delete', function(req, res) {
 
 /* POST to Add Materials Service */
 router.post('/add', function(req, res) {
-
   const db = req.db;
   const material = req.body;
   delete material._id;

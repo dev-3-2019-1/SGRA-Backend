@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Project-Material List</title>
+    <link rel='stylesheet' href='/public/stylesheets/style.css' type="text/css"/>
+  </head>
+  <body>
+    <h1>Project-Material List</h1>
+    <% if (projectMaterialList && projectMaterialList.length) { %>
+      <ul>
+        <% projectMaterialList.forEach((item) => { %>
+          <li>
+            <a class="test" href="/projectMaterials/<%= item._id %>/edit"><%= item.materialName %> (<%= item.materialusage %>) - <%= item.projectName %> - <%= item.userName %></a>
+            <a href="/projectMaterials/<%= item._id %>/delete">Delete</a>
+          </li>
+        <% }) %>
+      </ul>
+    <% } %>
+    <form id="formAddProjectMaterial" name="addProjectMaterial" method="get" action="/projectMaterials/new">
+      <button id="btnSubmit" type="submit">Novo</button>
+    </form>
+  </body>
+</html>

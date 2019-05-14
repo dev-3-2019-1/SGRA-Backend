@@ -19,6 +19,35 @@
         <option value="SYS" <%= (user.authorization && user.authorization.findIndex && (user.authorization.findIndex((a) => a === 'SYS') !== -1)) || (user.authorization && (user.authorization === 'SYS')) ? 'selected' : '' %> >Administrador de sistema</option>
         <option value="AUD" <%= (user.authorization && user.authorization.findIndex && (user.authorization.findIndex((a) => a === 'AUD') !== -1)) || (user.authorization && (user.authorization === 'AUD')) ? 'selected' : '' %> >Auditor</option>
       </select>
+
+      <p>Responsabilidade de Materiais
+        <a href="/projectMaterials/new">Adicionar</a>
+      </p>
+      <% if (relatedMaterialsList && relatedMaterialsList.length) { %>
+        <ul>
+          <% relatedMaterialsList.forEach((item) => { %>
+            <li>
+              <a class="test" href="/projectMaterials/<%= item._id %>/edit"><%= item.materialName %> (<%= item.materialusage %>) - <%= item.projectName %></a>
+              <a href="/projectMaterials/<%= item._id %>/delete">Delete</a>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
+
+      <p>Responsabilidade de Requisitos
+        <a href="/projectRequirements/new">Adicionar</a>
+      </p>
+      <% if (relatedRequirementsList && relatedRequirementsList.length) { %>
+        <ul>
+          <% relatedRequirementsList.forEach((item) => { %>
+            <li>
+              <a class="test" href="/projectRequirements/<%= item._id %>/edit"><%= item.projectName %> - <%= item.requirementName %> - <%= item.status %> - <%= item.priority %></a>
+              <a href="/projectRequirements/<%= item._id %>/delete">Delete</a>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
+
       <p></p>
       <button id="btnSubmit" type="submit">Salvar</button>
     </form>

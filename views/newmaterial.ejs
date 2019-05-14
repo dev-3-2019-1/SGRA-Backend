@@ -14,28 +14,21 @@
       <input id="inputMaterialDescription" type="text" placeholder="" name="materialdescription" value="<%= material.materialdescription %>" />
       <p>Unidade de Medida</p>
       <input id="inputMaterialMeasure" type="text" placeholder="" name="materialmeasure" value="<%= material.materialmeasure %>" />
-      
-      <p>Projeto Relacionado</p>
-      <% if (projectlist && projectlist.length) { %>
-        <select name="project" >
-          <% projectlist.forEach((item) => { %>
-            <option value="<%= item._id %>" <%= material.project && (material.project == item._id) ? 'selected' : '' %> ><%= item.projectname %></option>
+
+      <p>Projetos Relacionados
+        <a href="/projectMaterials/new">Adicionar</a>
+      </p>
+      <% if (relatedProjectsList && relatedProjectsList.length) { %>
+        <ul>
+          <% relatedProjectsList.forEach((item) => { %>
+            <li>
+              <a class="test" href="/projectMaterials/<%= item._id %>/edit">(<%= item.materialusage %>) - <%= item.projectName %> - <%= item.userName %></a>
+              <a href="/projectMaterials/<%= item._id %>/delete">Delete</a>
+            </li>
           <% }) %>
-        </select>
+        </ul>
       <% } %>
 
-      <p>Consumo</p>
-      <input id="inputMaterialUsage" type="number" step="0.01" min="0" placeholder="" name="materialusage" value="<%= material.materialusage %>" />
-
-      <p>Usuário Responsável</p>
-      <% if (userlist && userlist.length) { %>
-        <select name="responsibleuser" >
-          <% userlist.forEach((item) => { %>
-            <option value="<%= item._id %>" <%= material.responsibleuser && (material.responsibleuser == item._id) ? 'selected' : '' %> ><%= item.username %></option>
-          <% }) %>
-        </select>
-      <% } %>
-      
       <p></p>
       <button id="btnSubmit" type="submit">Salvar</button>
     </form>
