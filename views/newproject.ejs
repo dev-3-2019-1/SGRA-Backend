@@ -26,6 +26,15 @@
         </select>
       <% } %>
 
+      <p>Gerente de Projeto</p>
+      <% if (managerlist && managerlist.length) { %>
+        <select name="manager" >
+          <% managerlist.forEach((item) => { %>
+            <option value="<%= item._id %>" <%= project.manager && (project.manager == item._id) ? 'selected' : '' %> ><%= item.username %></option>
+          <% }) %>
+        </select>
+      <% } %>
+
       <p>Materiais Relacionados
         <a href="/projectMaterials/new">Adicionar</a>
       </p>
