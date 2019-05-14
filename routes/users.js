@@ -14,13 +14,14 @@ router.get('/', function(req, res) {
 
 /* GET New User page. */
 router.get('/new', function(req, res) {
-  res.render('newuser', 
-    { 
-      title: 'Add New User', 
-      action: "/users/add" ,
-      user: {
-      }
-    });
+  res.render('newuser', {
+    title: 'Add New User',
+    action: "/users/add" ,
+    relatedMaterialsList: {},
+    relatedRequirementsList: {},
+    user: {
+    }
+  });
 });
 
 /* GET Edit User page. */
@@ -30,7 +31,21 @@ router.get('/:userId/edit', async function(req, res) {
   const user = await collection.findOne({
     _id: req.params.userId
   });
-  res.render("newuser", { title: 'Maintain User', action: "/users/update", user});
+  const projectMaterialsCollection = db.get('projectMaterialsCollection');
+  const relatedMaterialsList = await projectMaterialsCollection.find({
+    responsibleUser: req.params.userId
+  });
+  const projectRequirementsCollection = db.get('projectRequirementsCollection');
+  const relatedRequirementsList = await projectRequirementsCollection.find({
+    responsibleUser: req.params.userId
+  });
+  res.render("newuser", {
+    title: 'Maintain User',
+    action: "/users/update",
+    relatedMaterialsList: relatedMaterialsList,
+    relatedRequirementsList: relatedRequirementsList,
+    user
+  });
 });
 
 /* GET Delete User page. */
@@ -46,7 +61,6 @@ router.get('/:userId/delete', function(req, res) {
 
 /* POST to Add User Service */
 router.post('/add', function(req, res) {
-
   const db = req.db;
   const user = req.body;
   delete user._id;
@@ -75,8 +89,5 @@ router.post('/update', function(req, res) {
     }
   });
 });
-
-
-
 
 module.exports = router;
