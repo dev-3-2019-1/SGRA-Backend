@@ -2,9 +2,11 @@
 <html>
   <head>
     <title>Manter Projeto</title>
-    <link rel='stylesheet' href='/public/stylesheets/style.css' type="text/css"/>
+    <% include ./base/head %>
   </head>
   <body>
+    <% include ./base/nav %>
+    <% include ./base/scripts %>
     <h1><%= title %></h1>
     <form id="formAddProject" name="addproject" method="post" action="<%= action %>">
       <input type="hidden" value="<%= project._id %>" name="_id" />
@@ -28,5 +30,6 @@
       <p></p>
       <button id="btnSubmit" type="submit">Salvar</button>
     </form>
+    <% include ./base/footer %>
   </body>
 </html>

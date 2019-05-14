@@ -2,9 +2,11 @@
 <html>
   <head>
     <title>Manter Requisito Legal</title>
-    <link rel='stylesheet' href='/public/stylesheets/style.css' type="text/css"/>
+    <% include ./base/head %>
   </head>
   <body>
+    <% include ./base/nav %>
+    <% include ./base/scripts %>
     <h1><%= title %></h1>
     <form id="formAddRequirement" name="addrequirement" method="post" action="<%= action %>">
       <input type="hidden" value="<%= requirement._id %>" name="_id" />
@@ -51,5 +53,6 @@
       <p></p>
       <button id="btnSubmit" type="submit">Salvar</button>
     </form>
+    <% include ./base/footer %>
   </body>
 </html>
