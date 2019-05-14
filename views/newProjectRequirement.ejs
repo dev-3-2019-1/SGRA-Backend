@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Projeto & Requisito</title>
+    <link rel='stylesheet' href='/public/stylesheets/style.css' type="text/css"/>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <form id="formProjectAndRequirement" name="assignprojectrequirement" method="post" action="<%= action %>">
+      <input type="hidden" value="<%= projectRequirement._id %>" name="_id" />
+      <input type="hidden" value="<%= projectRequirement.requirementName %>" name="requirementName" />
+      <input type="hidden" value="<%= projectRequirement.projectName %>" name="projectName" />
+      <input type="hidden" value="<%= projectRequirement.userName %>" name="userName" />
+
+      <p>Projeto</p>
+      <% if (projectlist && projectlist.length) { %>
+        <select name="proj" >
+          <% projectlist.forEach((item) => { %>
+            <option value="<%= item._id %>" <%= projectRequirement.proj && (projectRequirement.proj == item._id) ? 'selected' : '' %> ><%= item.projectname %></option>
+          <% }) %>
+        </select>
+      <% } %>
+
+      <p>Requisito</p>
+      <% if (requirementlist && requirementlist.length) { %>
+        <select name="requirement" >
+          <% requirementlist.forEach((item) => { %>
+            <option value="<%= item._id %>" <%= projectRequirement.requirement && (projectRequirement.requirement == item._id) ? 'selected' : '' %> ><%= item.requirementname %></option>
+          <% }) %>
+        </select>
+      <% } %>
+
+      <p>Status</p>
+      <select name="status" >
+        <option value="OPEN" <%= projectRequirement.status && (projectRequirement.status === 'OPEN') ? 'selected' : '' %> >Aberto</option>
+        <option value="PENDING" <%= projectRequirement.status && (projectRequirement.status === 'PENDING') ? 'selected' : '' %> >Pendente</option>
+        <option value="SOLVED" <%= projectRequirement.status && (projectRequirement.status === 'SOLVED') ? 'selected' : '' %> >Resolvido</option>
+      </select>
+
+      <p>Prioridade</p>
+      <select name="priority" >
+        <option value="1" <%= projectRequirement.priority && (projectRequirement.priority === '1') ? 'selected' : '' %> >1</option>
+        <option value="2" <%= projectRequirement.priority && (projectRequirement.priority === '2') ? 'selected' : '' %> >2</option>
+        <option value="3" <%= projectRequirement.priority && (projectRequirement.priority === '3') ? 'selected' : '' %> >3</option>
+      </select>
+
+      <p>Data de Resolução</p>
+      <input id="inputSolveDate" type="date" placeholder="" name="solvedate" value="<%= projectRequirement.solvedate %>" />
+
+      <p>Usuário Responsável</p>
+      <% if (userlist && userlist.length) { %>
+        <select name="responsibleUser" >
+          <% userlist.forEach((item) => { %>
+            <option value="<%= item._id %>" <%= projectRequirement.responsibleUser && (projectRequirement.responsibleUser == item._id) ? 'selected' : '' %> ><%= item.username %></option>
+          <% }) %>
+        </select>
+      <% } %>
+      
+      <p></p>
+      <button id="btnSubmit" type="submit">Salvar</button>
+    </form>
+  </body>
+</html>

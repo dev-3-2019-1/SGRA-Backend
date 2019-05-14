@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Manter Material</title>
+    <link rel='stylesheet' href='/public/stylesheets/style.css' type="text/css"/>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <form id="formAddMaterial" name="addmaterial" method="post" action="<%= action %>">
+      <input type="hidden" value="<%= material._id %>" name="_id" />
+      <p>Nome</p>
+      <input id="inputMaterialName" type="text" placeholder="" name="materialname" value="<%= material.materialname %>" />
+      <p>Descrição</p>
+      <input id="inputMaterialDescription" type="text" placeholder="" name="materialdescription" value="<%= material.materialdescription %>" />
+      <p>Unidade de Medida</p>
+      <input id="inputMaterialMeasure" type="text" placeholder="" name="materialmeasure" value="<%= material.materialmeasure %>" />
+
+      <p>Projetos Relacionados
+        <a href="/projectMaterials/new">Adicionar</a>
+      </p>
+      <% if (relatedProjectsList && relatedProjectsList.length) { %>
+        <ul>
+          <% relatedProjectsList.forEach((item) => { %>
+            <li>
+              <a class="test" href="/projectMaterials/<%= item._id %>/edit">(<%= item.materialusage %>) - <%= item.projectName %> - <%= item.userName %></a>
+              <a href="/projectMaterials/<%= item._id %>/delete">Delete</a>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
+
+      <p></p>
+      <button id="btnSubmit" type="submit">Salvar</button>
+    </form>
+  </body>
+</html>

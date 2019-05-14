@@ -14,40 +14,19 @@
       <input id="inputRequirementName" type="text" placeholder="" name="requirementname" value="<%= requirement.requirementname %>" />
       <p>Descrição</p>
       <input id="inputRequirementDescription" type="text" placeholder="" name="requirementdescription" value="<%= requirement.requirementdescription %>" />
-      <p>Projeto Relacionado</p>
-
-      <% if (projectlist && projectlist.length) { %>
-        <select name="project" >
-          <% projectlist.forEach((item) => { %>
-            <option value="<%= item._id %>" <%= requirement.project && (requirement.project == item._id) ? 'selected' : '' %> ><%= item.projectname %></option>
-          <% }) %>
-        </select>
-      <% } %>
       
-      <p>Status</p>
-      <select name="status" >
-        <option value="OPEN" <%= requirement.status && (requirement.status === 'OPEN') ? 'selected' : '' %> >Aberto</option>
-        <option value="PENDING" <%= requirement.status && (requirement.status === 'PENDING') ? 'selected' : '' %> >Pendente</option>
-        <option value="SOLVED" <%= requirement.status && (requirement.status === 'SOLVED') ? 'selected' : '' %> >Resolvido</option>
-      </select>
-
-      <p>Prioridade</p>
-      <select name="priority" >
-        <option value="1" <%= requirement.priority && (requirement.priority === '1') ? 'selected' : '' %> >1</option>
-        <option value="2" <%= requirement.priority && (requirement.priority === '2') ? 'selected' : '' %> >2</option>
-        <option value="3" <%= requirement.priority && (requirement.priority === '3') ? 'selected' : '' %> >3</option>
-      </select>
-
-      <p>Data de Resolução</p>
-      <input id="inputSolveDate" type="date" placeholder="" name="solvedate" value="<%= requirement.solvedate %>" />
-
-      <p>Usuário Responsável</p>
-      <% if (userlist && userlist.length) { %>
-        <select name="responsibleuser" >
-          <% userlist.forEach((item) => { %>
-            <option value="<%= item._id %>" <%= requirement.responsibleuser && (requirement.responsibleuser == item._id) ? 'selected' : '' %> ><%= item.username %></option>
+      <p>Projetos Relacionados
+        <a href="/projectRequirements/new">Adicionar</a>
+      </p>
+      <% if (relatedProjectsList && relatedProjectsList.length) { %>
+        <ul>
+          <% relatedProjectsList.forEach((item) => { %>
+            <li>
+              <a class="test" href="/projectRequirements/<%= item._id %>/edit"><%= item.projectName %> - <%= item.status %> - <%= item.priority %> - <%= item.userName %></a>
+              <a href="/projectRequirements/<%= item._id %>/delete">Delete</a>
+            </li>
           <% }) %>
-        </select>
+        </ul>
       <% } %>
 
       <p></p>

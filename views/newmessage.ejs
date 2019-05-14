@@ -26,7 +26,7 @@
       <% if (userlist && userlist.length) { %>
         <select name="receivers" multiple>
           <% userlist.forEach((item) => { %>
-            <option value="<%= item._id %>" <%= message.receivers && (message.receivers.findIndex((a) => a == item._id) !== -1) ? 'selected' : '' %> ><%= item.username %></option>
+            <option value="<%= item._id %>" <%= (message.receivers && message.receivers.findIndex && (message.receivers.findIndex((a) => a == item._id) !== -1)) || (message.receivers && (message.receivers == item._id)) ? 'selected' : '' %> ><%= item.username %></option>
           <% }) %>
         </select>
       <% } %>

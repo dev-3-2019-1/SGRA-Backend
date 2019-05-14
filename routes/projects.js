@@ -13,17 +13,22 @@ router.get('/', function(req, res) {
 });
 
 /* GET New Project page. */
-router.get('/new', function(req, res) {
+router.get('/new', async function(req, res) {
   const db = req.db;
   const userCollection = db.get('usercollection');
-  userCollection.find({},{},function(e,docs){
-    res.render('newproject', {
-      title: 'Add New Project', 
-      action: "/projects/add" ,
-      userlist: docs,
-      project: {
-      }
-    });
+  const userlist = await userCollection.find({});
+  console.log(userlist);
+  const managerlist = await userCollection.find({
+    authorization: "GDP"
+  });
+  res.render('newproject', {
+    title: 'Add New Project', 
+    action: "/projects/add" ,
+    userlist: userlist,
+    managerlist: managerlist,
+    relatedMaterialsList: {},
+    relatedRequirementsList: {},
+    project: {}
   });
 });
 
@@ -32,12 +37,32 @@ router.get('/:projectId/edit', async function(req, res) {
   const db = req.db;
   const collection = db.get('projectcollection');
   const userCollection = db.get('usercollection');
+  const userlist = await userCollection.find({});
+  const managerlist = await userCollection.find({
+    authorization: "GDP"
+  });
 
   const project = await collection.findOne({
     _id: req.params.projectId
   });
+  const projectMaterialsCollection = db.get('projectMaterialsCollection');
+  const relatedMaterialsList = await projectMaterialsCollection.find({
+    proj: req.params.projectId
+  });
+  const projectRequirementsCollection = db.get('projectRequirementsCollection');
+  const relatedRequirementsList = await projectRequirementsCollection.find({
+    proj: req.params.projectId
+  });
   userCollection.find({},{},function(e,docs){
-    res.render("newproject", { title: 'Maintain Project', action: "/projects/update", project, userlist: docs});
+    res.render("newproject", { 
+      title: 'Maintain Project', 
+      action: "/projects/update", 
+      relatedMaterialsList: relatedMaterialsList,
+      relatedRequirementsList: relatedRequirementsList,
+      userlist: userlist,
+      managerlist: managerlist,
+      project
+    });
   });
 });
 

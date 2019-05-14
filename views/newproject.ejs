@@ -27,6 +27,44 @@
           <% }) %>
         </select>
       <% } %>
+
+      <p>Gerente de Projeto</p>
+      <% if (managerlist && managerlist.length) { %>
+        <select name="manager" >
+          <% managerlist.forEach((item) => { %>
+            <option value="<%= item._id %>" <%= project.manager && (project.manager == item._id) ? 'selected' : '' %> ><%= item.username %></option>
+          <% }) %>
+        </select>
+      <% } %>
+
+      <p>Materiais Relacionados
+        <a href="/projectMaterials/new">Adicionar</a>
+      </p>
+      <% if (relatedMaterialsList && relatedMaterialsList.length) { %>
+        <ul>
+          <% relatedMaterialsList.forEach((item) => { %>
+            <li>
+              <a class="test" href="/projectMaterials/<%= item._id %>/edit"><%= item.materialName %> (<%= item.materialusage %>) - <%= item.userName %></a>
+              <a href="/projectMaterials/<%= item._id %>/delete">Delete</a>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
+
+      <p>Requisitos Relacionados
+        <a href="/projectRequirements/new">Adicionar</a>
+      </p>
+      <% if (relatedRequirementsList && relatedRequirementsList.length) { %>
+        <ul>
+          <% relatedRequirementsList.forEach((item) => { %>
+            <li>
+              <a class="test" href="/projectRequirements/<%= item._id %>/edit"><%= item.requirementName %> - <%= item.status %> - <%= item.priority %> - <%= item.userName %></a>
+              <a href="/projectRequirements/<%= item._id %>/delete">Delete</a>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
+
       <p></p>
       <button id="btnSubmit" type="submit">Salvar</button>
     </form>
