@@ -2,9 +2,11 @@
 <html>
   <head>
     <title>Projeto & Material</title>
-    <link rel='stylesheet' href='/public/stylesheets/style.css' type="text/css"/>
+    <% include ./base/head %>
   </head>
   <body>
+    <% include ./base/nav %>
+    <% include ./base/scripts %>
     <h1><%= title %></h1>
     <form id="formMaterialAndProject" name="assignprojectmaterial" method="post" action="<%= action %>">
       <input type="hidden" value="<%= projectMaterial._id %>" name="_id" />

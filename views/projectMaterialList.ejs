@@ -2,9 +2,11 @@
 <html>
   <head>
     <title>Project-Material List</title>
-    <link rel='stylesheet' href='/public/stylesheets/style.css' type="text/css"/>
+    <% include ./base/head %>
   </head>
   <body>
+    <% include ./base/nav %>
+    <% include ./base/scripts %>
     <h1>Project-Material List</h1>
     <% if (projectMaterialList && projectMaterialList.length) { %>
       <ul>

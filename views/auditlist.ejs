@@ -2,9 +2,11 @@
 <html>
   <head>
     <title>Audit List</title>
-    <link rel='stylesheet' href='/public/stylesheets/style.css' type="text/css"/>
+    <% include ./base/head %>
   </head>
   <body>
+    <% include ./base/nav %>
+    <% include ./base/scripts %>
     <h1>Audit List</h1>
     <% if (auditlist && auditlist.length) { %>
       <ul>
