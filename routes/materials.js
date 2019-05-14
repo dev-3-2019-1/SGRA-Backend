@@ -18,8 +18,7 @@ router.get('/new', async function(req, res) {
     title: 'Add New Materials', 
     action: "/materials/add" ,
     relatedProjectsList: {},
-    material: {
-    }
+    material: {}
   });
 });
 
