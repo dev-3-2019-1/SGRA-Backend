@@ -18,9 +18,7 @@
         <% }) %>
       </ul>
     <% } %>
-    <form id="formAddProject" name="addproject" method="get" action="/projects/new">
-      <button id="btnSubmit" type="submit">Novo</button>
-    </form>
+    <%- include("./base/newButton", {newUrl: "/projects/new"}) %>
     <% include ./base/footer %>
   </body>
 </html>

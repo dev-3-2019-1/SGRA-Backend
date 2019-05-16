@@ -18,8 +18,7 @@
         <% }) %>
       </ul>
     <% } %>
-    <form id="formAddProjectMaterial" name="addProjectMaterial" method="get" action="/projectMaterials/new">
-      <button id="btnSubmit" type="submit">Novo</button>
-    </form>
+    <%- include("./base/newButton", {newUrl: "/projectMaterials/new"}) %>
+    <% include ./base/footer %>
   </body>
 </html>
