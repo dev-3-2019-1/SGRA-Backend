@@ -2,9 +2,11 @@
 <html>
   <head>
     <title>Material List</title>
-    <link rel='stylesheet' href='/public/stylesheets/style.css' type="text/css"/>
+    <% include ./base/head %>
   </head>
   <body>
+    <% include ./base/nav %>
+    <% include ./base/scripts %>
     <h1>Material List</h1>
     <% if (materiallist && materiallist.length) { %>
       <ul>
@@ -16,8 +18,7 @@
         <% }) %>
       </ul>
     <% } %>
-    <form id="formAddMaterial" name="addmaterial" method="get" action="/materials/new">
-      <button id="btnSubmit" type="submit">Novo</button>
-    </form>
+    <%- include("./base/newButton", {newUrl: "/materials/new"}) %>
+    <% include ./base/footer %>
   </body>
 </html>

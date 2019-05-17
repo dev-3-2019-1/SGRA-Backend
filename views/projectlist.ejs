@@ -2,9 +2,11 @@
 <html>
   <head>
     <title>Project List</title>
-    <link rel='stylesheet' href='/public/stylesheets/style.css' type="text/css"/>
+    <% include ./base/head %>
   </head>
   <body>
+    <% include ./base/nav %>
+    <% include ./base/scripts %>
     <h1>Project List</h1>
     <% if (projectlist && projectlist.length) { %>
       <ul>
@@ -16,8 +18,7 @@
         <% }) %>
       </ul>
     <% } %>
-    <form id="formAddProject" name="addproject" method="get" action="/projects/new">
-      <button id="btnSubmit" type="submit">Novo</button>
-    </form>
+    <%- include("./base/newButton", {newUrl: "/projects/new"}) %>
+    <% include ./base/footer %>
   </body>
 </html>

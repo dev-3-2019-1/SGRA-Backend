@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title>SGRA</title>
+    <% include ./base/head %>
   </head>
   <body>
+    <% include ./base/nav %>
+    <% include ./base/scripts %>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <% include ./base/footer %>
   </body>
 </html>
