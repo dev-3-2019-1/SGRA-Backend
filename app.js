@@ -17,6 +17,7 @@ var materialsRouter = require('./routes/materials');
 var auditsRouter = require('./routes/audits');
 var projectMaterialsRouter = require('./routes/projectMaterials');
 var projectRequirementsRouter = require('./routes/projectRequirements');
+var inboxRouter = require('./routes/inbox');
 
 var app = express();
 
@@ -44,6 +45,7 @@ app.use('/materials', materialsRouter);
 app.use('/audits', auditsRouter);
 app.use('/projectMaterials', projectMaterialsRouter);
 app.use('/projectRequirements', projectRequirementsRouter);
+app.use('/inbox', inboxRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
