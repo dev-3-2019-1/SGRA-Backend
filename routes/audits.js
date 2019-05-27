@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var request = require('request-promise');
+var moment = require('moment');
 
-/* GET Audit list page. */
 router.get('/', function(req, res) {
   var db = req.db;
   var collection = db.get('auditcollection');
@@ -12,7 +13,6 @@ router.get('/', function(req, res) {
   });
 });
 
-/* GET New Audit page. */
 router.get('/new', async function(req, res) {
   const db = req.db;
   const requirementcollection = db.get('requirementcollection');
@@ -23,14 +23,58 @@ router.get('/new', async function(req, res) {
       title: 'Add New Audit', 
       action: "/audits/add" ,
       projectlist: docs,
-      requirementlist: requirementlist,
+      requirementlist,
       audit: {
       }
     });
   });
 });
 
-/* GET Edit Audit page. */
+router.get('/book', async function(req, res) {
+  const db = req.db;
+  const requirementcollection = db.get('requirementcollection');
+  const projectCollection = db.get('projectcollection');
+  const requirementlist = await requirementcollection.find({});
+  const availableHoursList = await request(req.protocol + "\:\/\/" + req.get('host') + '/secretariat', {
+    json: true
+  });
+  const docs = await projectCollection.find({});
+  res.render('bookAudit', {
+    title: 'Agendar Auditoria', 
+    action: "/audits/add" ,
+    projectlist: docs,
+    requirementlist,
+    audit: {
+    },
+    availableHoursList,
+    moment
+  });
+});
+
+router.get('/:auditId/book', async function(req, res) {
+  const db = req.db;
+  const collection = db.get('auditcollection');
+  const audit = await collection.findOne({
+    _id: req.params.auditId
+  });
+  const projectCollection = db.get('projectcollection');
+  const requirementcollection = db.get('requirementcollection');
+  const projectlist = await projectCollection.find({});
+  const requirementlist = await requirementcollection.find({});
+  const availableHoursList = await request(req.protocol + "\:\/\/" + req.get('host') + '/secretariat', {
+    json: true
+  });
+  res.render("bookAudit", {
+    title: 'Agendar Auditoria', 
+      action: "/audits/update" ,
+      projectlist,
+      requirementlist,
+      audit,
+      availableHoursList,
+      moment
+  });
+});
+
 router.get('/:auditId/edit', async function(req, res) {
   const db = req.db;
   const collection = db.get('auditcollection');
@@ -41,16 +85,20 @@ router.get('/:auditId/edit', async function(req, res) {
   const requirementcollection = db.get('requirementcollection');
   const projectlist = await projectCollection.find({});
   const requirementlist = await requirementcollection.find({});
+  const availableHoursList = await request(req.protocol + "\:\/\/" + req.get('host') + '/secretariat', {
+    json: true
+  });
   res.render("newaudit", {
     title: 'Maintain Audit',
     action: "/audits/update",
     projectlist: projectlist,
-    requirementlist: requirementlist,
-    audit
+    requirementlist,
+    audit,
+    availableHoursList,
+    moment
   });
 });
 
-/* GET Delete Audit page. */
 router.get('/:auditId/delete', function(req, res) {
   var db = req.db;
   var collection = db.get('auditcollection');
@@ -61,7 +109,6 @@ router.get('/:auditId/delete', function(req, res) {
   });
 });
 
-/* POST to Add Audit Service */
 router.post('/add', function(req, res) {
 
   const db = req.db;
@@ -78,7 +125,7 @@ router.post('/add', function(req, res) {
   });
 });
 
-/* POST to Update Audit Service */
+
 router.post('/update', function(req, res) {
   const db = req.db;
   const audit = req.body;

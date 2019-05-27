@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Agendar Auditoria</title>
+    <% include ./base/head %>
+  </head>
+  <body>
+    <% include ./base/nav %>
+    <% include ./base/scripts %>
+    <h1><%= title %></h1>
+    <form id="formAddAudit" name="addaudit" method="post" action="<%= action %>">
+      <input type="hidden" value="<%= audit._id %>" name="_id" />
+
+      <p>Projeto Associado</p>
+      <% if (projectlist && projectlist.length) { %>
+        <select name="project" >
+          <% projectlist.forEach((item) => { %>
+            <option value="<%= item._id %>" <%= audit.project && (audit.project == item._id) ? 'selected' : '' %> ><%= item.projectname %></option>
+          <% }) %>
+        </select>
+      <% } %>
+      <p>Descrição</p>
+      <input id="inputAuditDescription" type="text" placeholder="" name="auditdescription" value="<%= audit.auditdescription %>" />
+
+      <p>Requisitos Pendentes</p>
+      <% if (requirementlist && requirementlist.length) { %>
+        <select name="requirements" multiple >
+          <% requirementlist.forEach((item) => { %>
+            <option value="<%= item._id %>" <%= (audit.requirements && audit.requirements.findIndex && (audit.requirements.findIndex((a) => a == item._id) !== -1)) || (audit.requirements && (audit.requirements == item._id)) ? 'selected' : '' %> ><%= item.requirementname %></option>
+          <% }) %>
+        </select>
+      <% } %>
+
+      <p>Datas</p>
+      <% if (availableHoursList && availableHoursList.length) { %>
+        <select name="dates" multiple>
+          <% availableHoursList.forEach((item) => { %>
+            <option
+              <%= audit.dates && audit.dates.find((a) => a == item.startHour) ? 'selected' : '' %> 
+              value="<%= item.startHour %>" >
+              <%= moment(item.startHour).format('MMMM Do YYYY, h:mm a') %> - <%= moment(item.endHour).format('h:mm a') %>
+            </option>
+          <% }) %>
+        </select>
+      <% } %>
+      
+      <p></p>
+      <button id="btnSubmit" type="submit">Salvar</button>
+    </form>
+    <% include ./base/footer %>
+  </body>
+</html>
