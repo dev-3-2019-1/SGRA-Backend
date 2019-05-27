@@ -18,6 +18,8 @@ var auditsRouter = require('./routes/audits');
 var projectMaterialsRouter = require('./routes/projectMaterials');
 var projectRequirementsRouter = require('./routes/projectRequirements');
 
+var secretariatRouter = require('./routes/secretariat');
+
 var app = express();
 
 // view engine setup
@@ -44,6 +46,12 @@ app.use('/materials', materialsRouter);
 app.use('/audits', auditsRouter);
 app.use('/projectMaterials', projectMaterialsRouter);
 app.use('/projectRequirements', projectRequirementsRouter);
+
+//only for dev usage, should be replaced with proxy to real service in future
+
+app.use("/secretariat", secretariatRouter);
+
+// only for dev usage, should be replaced with proxy to real service in future
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
