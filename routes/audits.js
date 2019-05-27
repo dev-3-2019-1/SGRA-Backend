@@ -35,9 +35,7 @@ router.get('/book', async function(req, res) {
   const requirementcollection = db.get('requirementcollection');
   const projectCollection = db.get('projectcollection');
   const requirementlist = await requirementcollection.find({});
-  const availableHoursList = await request(req.protocol + "\:\/\/" + req.get('host') + '/secretariat', {
-    json: true
-  });
+  const availableHoursList = await getAvailableHours(req);
   const docs = await projectCollection.find({});
   res.render('bookAudit', {
     title: 'Agendar Auditoria', 
@@ -61,9 +59,7 @@ router.get('/:auditId/book', async function(req, res) {
   const requirementcollection = db.get('requirementcollection');
   const projectlist = await projectCollection.find({});
   const requirementlist = await requirementcollection.find({});
-  const availableHoursList = await request(req.protocol + "\:\/\/" + req.get('host') + '/secretariat', {
-    json: true
-  });
+  const availableHoursList = await getAvailableHours(req);
   res.render("bookAudit", {
     title: 'Agendar Auditoria', 
       action: "/audits/update" ,
@@ -85,9 +81,7 @@ router.get('/:auditId/edit', async function(req, res) {
   const requirementcollection = db.get('requirementcollection');
   const projectlist = await projectCollection.find({});
   const requirementlist = await requirementcollection.find({});
-  const availableHoursList = await request(req.protocol + "\:\/\/" + req.get('host') + '/secretariat', {
-    json: true
-  });
+  const availableHoursList = await getAvailableHours(req);
   res.render("newaudit", {
     title: 'Maintain Audit',
     action: "/audits/update",
@@ -141,3 +135,9 @@ router.post('/update', function(req, res) {
 });
 
 module.exports = router;
+async function getAvailableHours(req) {
+  return await request(req.protocol + "\:\/\/" + req.get('host') + '/secretariat', {
+    json: true
+  });
+}
+
