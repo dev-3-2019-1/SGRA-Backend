@@ -1,9 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var moment = require('moment');
 
 router.get('/', function(req, res) {
-  debugger;
   var today = new Date();
   const oneDay = 24 * 60 * 60 * 1000;
   var response = [];
