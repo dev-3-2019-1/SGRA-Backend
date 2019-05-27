@@ -49,6 +49,19 @@
           <% }) %>
         </select>
       <% } %>
+
+      <p>Datas</p>
+      <% if (availableHoursList && availableHoursList.length) { %>
+        <select name="dates" multiple>
+          <% availableHoursList.forEach((item) => { %>
+            <option
+              <%= audit.dates && audit.dates.find((a) => a == item.startHour) ? 'selected' : '' %> 
+              value="<%= item.startHour %>" >
+              <%= moment(item.startHour).format('MMMM Do YYYY, h:mm a') %> - <%= moment(item.endHour).format('h:mm a') %>
+            </option>
+          <% }) %>
+        </select>
+      <% } %>
       
       <p></p>
       <button id="btnSubmit" type="submit">Salvar</button>
