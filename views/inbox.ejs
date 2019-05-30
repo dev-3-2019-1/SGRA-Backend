@@ -7,7 +7,12 @@
   <body>
     <% include ./base/nav %>
     <% include ./base/scripts %>
-    <h1>Messages</h1>
+    <div class="row">
+      <h1 class="col-md-3">Messages</h1>
+      <div class="col-md-3">
+        <%- include("./base/newButton", {newUrl: "/messages/new"}) %>
+      </div>
+    </div>
     <% if (messagelist && messagelist.length) { %>
       <ul class="right-margin">
         <% messagelist.forEach((item) => { %>
