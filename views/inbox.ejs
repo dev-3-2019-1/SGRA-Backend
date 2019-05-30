@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Inbox</title>
+    <% include ./base/head %>
+  </head>
+  <body>
+    <% include ./base/nav %>
+    <% include ./base/scripts %>
+    <h1>Messages</h1>
+    <% if (messagelist && messagelist.length) { %>
+      <ul class="right-margin">
+        <% messagelist.forEach((item) => { %>
+          <%- include("./base/messagePanel", {
+            sender: item.sender,
+            text: item.messagetext
+          }) %>
+        <% }) %>
+      </ul>
+    <% } %>
+    <%- include("./base/newButton", {newUrl: "/messages/new"}) %>
+    <% include ./base/footer %>
+  </body>
+</html>
