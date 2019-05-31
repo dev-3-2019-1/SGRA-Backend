@@ -18,11 +18,14 @@ router.get('/new', async function(req, res) {
   const requirementcollection = db.get('requirementcollection');
   const projectCollection = db.get('projectcollection');
   const requirementlist = await requirementcollection.find({});
-  const projectlist = projectCollection.find({},{},function(e,docs){
+  const availableHoursList = await getAvailableHours(req);
+  projectCollection.find({},{},function(e,docs){
     res.render('newaudit', {
       title: 'Add New Audit', 
       action: "/audits/add" ,
       projectlist: docs,
+      availableHoursList,
+      moment,
       requirementlist,
       audit: {
       }
