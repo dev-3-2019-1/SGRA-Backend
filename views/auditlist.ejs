@@ -12,7 +12,8 @@
       <ul>
         <% auditlist.forEach((item) => { %>
           <li>
-            <a class="test" href="/audits/<%= item._id %>/edit"><%= item.auditdescription %></a>
+            <a class="test" href="/audits/<%= item._id %>/book"><%= item.auditdescription %></a>
+            <a class="test" href="/audits/<%= item._id %>/edit">Edit</a>
             <a href="/audits/<%= item._id %>/delete">Delete</a>
           </li>
         <% }) %>

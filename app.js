@@ -19,6 +19,8 @@ var projectMaterialsRouter = require('./routes/projectMaterials');
 var projectRequirementsRouter = require('./routes/projectRequirements');
 var inboxRouter = require('./routes/inbox');
 
+var secretariatRouter = require('./routes/secretariat');
+
 var app = express();
 
 // view engine setup
@@ -57,6 +59,12 @@ var collection = db.get('usercollection');
 collection.update({}, user, { upsert: true });
 var loggedUserCollection = db.get('loggedusercollection');
 loggedUserCollection.update({}, user, { upsert: true });
+
+//only for dev usage, should be replaced with proxy to real service in future
+
+app.use("/secretariat", secretariatRouter);
+
+// only for dev usage, should be replaced with proxy to real service in future
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
