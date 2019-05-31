@@ -39,11 +39,11 @@ router.get('/book', async function(req, res) {
   const projectCollection = db.get('projectcollection');
   const requirementlist = await requirementcollection.find({});
   const availableHoursList = await getAvailableHours(req);
-  const docs = await projectCollection.find({});
+  const projectlist = await projectCollection.find({});
   res.render('bookAudit', {
     title: 'Agendar Auditoria', 
     action: "/audits/add" ,
-    projectlist: docs,
+    projectlist,
     requirementlist,
     audit: {
     },
@@ -88,7 +88,7 @@ router.get('/:auditId/edit', async function(req, res) {
   res.render("newaudit", {
     title: 'Maintain Audit',
     action: "/audits/update",
-    projectlist: projectlist,
+    projectlist,
     requirementlist,
     audit,
     availableHoursList,
@@ -110,6 +110,7 @@ router.post('/add', function(req, res) {
 
   const db = req.db;
   const audit = req.body;
+  audit.status = "SCHEDULED";
   delete audit._id;
   const collection = db.get('auditcollection');
   collection.insert(audit, function (err) {
@@ -121,7 +122,6 @@ router.post('/add', function(req, res) {
       }
   });
 });
-
 
 router.post('/update', function(req, res) {
   const db = req.db;
