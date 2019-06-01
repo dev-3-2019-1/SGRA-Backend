@@ -7,10 +7,12 @@
   <body>
     <% include ./base/nav %>
     <% include ./base/scripts %>
-    <div class="row">
-      <h1 class="col-md-3">Messages</h1>
-      <div class="col-md-3">
-        <%- include("./base/newButton", {newUrl: "/messages/new"}) %>
+    <div class="display-flex">
+      <h1 class="">Messages</h1>
+      <div class="">
+        <% if(hasAnyAuthorization) { %>
+          <%- include("./base/newButton", {newUrl: "/messages/send"}) %>
+        <% } %>
       </div>
     </div>
     <% if (messagelist && messagelist.length) { %>
@@ -23,7 +25,6 @@
         <% }) %>
       </ul>
     <% } %>
-    <%- include("./base/newButton", {newUrl: "/messages/new"}) %>
     <% include ./base/footer %>
   </body>
 </html>

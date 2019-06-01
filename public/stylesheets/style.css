@@ -1,3 +1,20 @@
 .right-margin {
   margin-right: 2rem;
 }
+
+.display-flex {
+  display: flex;
+  align-items: center;
+}
+
+.display-flex > * {
+  margin: 1rem;
+}
+
+.width-auto {
+  width: auto;
+}
+
+.resize-auto {
+  resize: auto;
+}
