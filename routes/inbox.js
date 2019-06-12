@@ -13,10 +13,16 @@ router.get('/', async function(req, res) {
   });
   var messageCollection = db.get('messagecollection');
 
+  var hasAnyAuthorization = false;
+  if (loggedUser && loggedUser.authorization) {
+    hasAnyAuthorization = loggedUser.authorization.length > 0;
+  }
+
   messageCollection.find({
     receivers: loggedUser._id.toString()
   },{},function(e,docs){
       res.render('inbox', {
+          hasAnyAuthorization,
           messagelist : docs
       });
   });

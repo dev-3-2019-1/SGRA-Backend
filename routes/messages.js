@@ -30,6 +30,38 @@ router.get('/new', async function(req, res) {
   });
 });
 
+router.get('/send', async function(req, res) {
+  const db = req.db;
+  const userCollection = db.get('usercollection');
+  const projectCollection = db.get('projectcollection');
+  const userlist = await userCollection.find({});
+  const projectlist = projectCollection.find({});
+  const loggedUserCollection = db.get('loggedusercollection');
+  const sender = await loggedUserCollection.findOne({});
+  if (sender && sender.authorization) {
+    var hasAnyAuthorization = sender.authorization.length > 0;
+    if (!hasAnyAuthorization) {
+      res.redirect("/inbox");
+      return;
+    }
+  }
+  var isManagerOrAdmin = false;
+  if (sender && sender.authorization && sender.authorization.findIndex) {
+    isManagerOrAdmin = sender.authorization.findIndex((a) => a === 'GDP' || a === 'SYS' ) !== -1;
+  }
+  res.render('sendMessage', {
+    title: 'Send Message', 
+    action: "/messages/send" ,
+    projectlist,
+    userlist,
+    sender,
+    isManagerOrAdmin,
+    message: {
+      sender: sender._id.toString()
+    }
+  });
+});
+
 /* GET Edit Message page. */
 router.get('/:messageId/edit', async function(req, res) {
   const db = req.db;
@@ -74,6 +106,22 @@ router.post('/add', function(req, res) {
       }
       else {
         res.redirect("/messages");
+      }
+  });
+});
+
+router.post('/send', function(req, res) {
+  const db = req.db;
+  const message = req.body;
+  delete message._id;
+  console.log(message);
+  const collection = db.get('messagecollection');
+  collection.insert(message, function (err) {
+      if (err) {
+        res.send("There was a problem adding the information to the database.");
+      }
+      else {
+        res.redirect("/inbox");
       }
   });
 });

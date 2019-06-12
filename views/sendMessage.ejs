@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <% include ./base/head %>
+  </head>
+  <body>
+    <% include ./base/nav %>
+    <% include ./base/scripts %>
+    <form id="formSendMessage" name="sendmessage" method="post" action="<%= action %>">
+      <h1 class="col-sm-12"><%= title %></h1>
+      <input type="hidden" value="<%= message._id %>" name="_id" />
+      <input type="hidden" value="<%= message.sender %>" name="sender" />
+
+      <div class="form-group">
+        <label for="senderText" class="col-sm-1" >Remetente:</label>
+        <div class="col-sm-11">
+          <p id="senderText" class="form-control-static" name="sender" ><%= sender.username %></p>
+        </div>
+      </div>
+
+      <div class="form-group col-sm-12">
+        <label for="messageTextArea">Texto da Mensagem</label>
+        <textarea id="messageTextArea" placeholder="Mensagem" class="form-control width-auto" rows="3" name="messagetext" value="<%= message.messagetext %>"></textarea>
+      </div>
+
+      <div class="form-group col-sm-12">
+        <label for="receiversSelect">Destinatários</label>
+        <% if (userlist && userlist.length) { %>
+          <select id="receiversSelect" name="receivers" class="form-control width-auto resize-auto" <%= isManagerOrAdmin ? "multiple" : '' %> >
+            <% userlist.forEach((item) => { %>
+              <option value="<%= item._id %>" <%= (message.receivers && message.receivers.findIndex && (message.receivers.findIndex((a) => a == item._id) !== -1)) || (message.receivers && (message.receivers == item._id)) ? 'selected' : '' %> ><%= item.username %></option>
+            <% }) %>
+          </select>
+        <% } %>
+      </div>
+
+      <div class="form-group col-sm-12">
+        <button id="btnSubmit" class="btn btn-default btn-lg" type="submit">Salvar</button>
+      </div>
+
+    </form>
+    <% include ./base/footer %>
+  </body>
+</html>
