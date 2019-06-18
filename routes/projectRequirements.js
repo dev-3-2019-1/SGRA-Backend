@@ -38,6 +38,7 @@ router.post('/add', async function(req, res) {
   const requirementName = await getOneEntryFromCollection(db, "requirementcollection", {_id: projectRequirement.requirement});
   const projectName = await getOneEntryFromCollection(db, "projectcollection", {_id: projectRequirement.proj});
   const userName = await getOneEntryFromCollection(db, "usercollection", {_id: projectRequirement.responsibleUser});
+  projectRequirement.solvedate = new Date(projectRequirement.solvedate);
   projectRequirement.requirementName = requirementName.requirementname;
   projectRequirement.projectName = projectName.projectname;
   projectRequirement.userName = userName.username;
