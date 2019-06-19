@@ -47,7 +47,7 @@
       </select>
 
       <p>Data de Resolução</p>
-      <input id="inputSolveDate" type="date" placeholder="" name="solvedate" value="<%= projectRequirement.solvedate %>" />
+      <input id="inputSolveDate" type="date" placeholder="" name="solvedate" value="<%= projectRequirement.solvedate ? moment.utc(projectRequirement.solvedate).format('YYYY-MM-DD') : '' %>" />
 
       <p>Usuário Responsável</p>
       <% if (userlist && userlist.length) { %>

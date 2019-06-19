@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var moment = require('moment');
 
 /* GET Project Requirements list page. */
 router.get('/', function(req, res) {
@@ -24,7 +25,8 @@ router.get('/new', async function(req, res) {
     projectlist: projectlist,
     requirementlist: requirementlist,
     userlist: userlist,
-    projectRequirement: {}
+    projectRequirement: {},
+    moment
   });
 });
 
@@ -36,6 +38,7 @@ router.post('/add', async function(req, res) {
   const requirementName = await getOneEntryFromCollection(db, "requirementcollection", {_id: projectRequirement.requirement});
   const projectName = await getOneEntryFromCollection(db, "projectcollection", {_id: projectRequirement.proj});
   const userName = await getOneEntryFromCollection(db, "usercollection", {_id: projectRequirement.responsibleUser});
+  projectRequirement.solvedate = new Date(projectRequirement.solvedate);
   projectRequirement.requirementName = requirementName.requirementname;
   projectRequirement.projectName = projectName.projectname;
   projectRequirement.userName = userName.username;
@@ -63,7 +66,8 @@ router.get('/:projectRequirementId/edit', async function(req, res) {
     requirementlist: requirementlist,
     projectlist: projectlist,
     userlist: userlist,
-    projectRequirement
+    projectRequirement,
+    moment
   });
 });
 
@@ -75,6 +79,7 @@ router.post('/update', async function(req, res) {
   const requirementName = await getOneEntryFromCollection(db, "requirementcollection", {_id: projectRequirement.requirement});
   const projectName = await getOneEntryFromCollection(db, "projectcollection", {_id: projectRequirement.proj});
   const userName = await getOneEntryFromCollection(db, "usercollection", {_id: projectRequirement.responsibleUser});
+  projectRequirement.solvedate = new Date(projectRequirement.solvedate);
   projectRequirement.requirementName = requirementName.requirementname;
   projectRequirement.projectName = projectName.projectname;
   projectRequirement.userName = userName.username;
